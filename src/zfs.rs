@@ -5,7 +5,7 @@ use libzfs_sys::raw::{
 
 use crate::nvlist::Nvlist;
 
-struct LibZfs {
+pub struct LibZfs {
     inner: *mut libzfs_handle_t,
 }
 
