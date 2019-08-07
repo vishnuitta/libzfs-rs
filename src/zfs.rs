@@ -38,7 +38,7 @@ impl LibZfs {
 
         if ret != 0 {
             unsafe {
-                Ok(
+                Err(
                     std::ffi::CStr::from_ptr(libzfs_error_description(self.inner))
                         .to_str()
                         .unwrap()
