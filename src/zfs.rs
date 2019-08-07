@@ -90,8 +90,10 @@ impl LibZfs {
 //        for x in buf.iter() {
 //            print!("{:x}", x);
 //        }
-        let s = std::ffi::CStr::from_ptr(&buf[0]);
-        println!("{}", s.to_str().unwrap().to_string());
+        unsafe {
+            let s = std::ffi::CStr::from_ptr(&buf[0]);
+        }
+//        println!("{}", s.to_str().unwrap().to_string());
         if ret != 0 {
             unsafe {
                 Err(
