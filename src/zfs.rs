@@ -51,7 +51,7 @@ impl LibZfs {
         }
     }
 
-    pub fn get_capacity(&self, name: &str) -> Result<String, String> {
+    pub fn get_capacity(&self, name: &str) -> Result<u64, String> {
         let cname = std::ffi::CString::new(name).expect("Failed to allocate memory");
         let pname = std::ffi::CString::new("pool1").expect("Failed to allocate memory");
         let cap = std::ffi::CString::new("pool1").expect("Failed to allocate memory");
@@ -91,7 +91,6 @@ impl LibZfs {
 //            print!("{:x}", x);
 //        }
         unsafe {
-            let s = std::ffi::CStr::from_ptr(&buf[0]);
 //            println!("{}", s.to_str().unwrap().to_string());
             if ret != 0 {
                 Err(
@@ -101,7 +100,8 @@ impl LibZfs {
                         .to_string(),
                 )
             } else {
-                Ok(s.to_str().unwrap().to_string())
+                let s = std::ffi::CStr::from_ptr(&buf[0]).to_str().unwrap().to_string();
+                Ok(s.parse().unwrap())
             }
         }
     }
