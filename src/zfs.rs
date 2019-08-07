@@ -92,19 +92,15 @@ impl LibZfs {
 //        }
         unsafe {
             let s = std::ffi::CStr::from_ptr(&buf[0]);
-        }
-//        println!("{}", s.to_str().unwrap().to_string());
-        if ret != 0 {
-            unsafe {
+//            println!("{}", s.to_str().unwrap().to_string());
+            if ret != 0 {
                 Err(
                     std::ffi::CStr::from_ptr(libzfs_error_description(self.inner))
                         .to_str()
                         .unwrap()
                         .to_string(),
                 )
-            }
-        } else {
-            unsafe {
+            } else {
                 Ok(s.to_str().unwrap().to_string())
             }
         }
